@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 
 class PostResource extends Resource
 {
@@ -30,16 +31,15 @@ class PostResource extends Resource
                 Forms\Components\RichEditor::make('content')
                     ->columnSpan('full')
                     ->required(),
-                Forms\Components\FileUpload::make('image')
-                    // ->disk('public')
-                    ->directory('posts')
-                    ->preserveFilenames()
-                    ->imageEditor()
-                    // ->enableOpen()
-                    // ->enableDownload()
-                    // ->enableReordering()
-                    ->multiple(),
-            ]);
+            Forms\Components\FileUpload::make('image')
+                ->directory(config('filesystems.disks.do.directory_env') . '/posts')
+                ->imageEditor()
+                ->visibility('public')
+                ->image()
+                ->preserveFilenames()
+                ->maxSize(5120),
+
+        ]);
     }
 
     public static function table(Table $table): Table
