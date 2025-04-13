@@ -73,13 +73,6 @@ return [
             'report' => false,
             'visibility' => 'public',
             'bucket_endpoint'=>true,
-            'directory_env'=>env('DO_DIRECTORY'),
-            'options' => [
-                'ACL' => 'public-read',
-                'CacheControl' => 'max-age=31536000',
-                'Bucket' => env('DO_BUCKET'),
-                'ServerSideEncryption' => 'AES256'
-            ]
         ],
 
     ],

@@ -32,12 +32,16 @@ class PostResource extends Resource
                     ->columnSpan('full')
                     ->required(),
             Forms\Components\FileUpload::make('image')
+                ->disk('do')
                 ->directory(config('filesystems.disks.do.directory_env') . '/posts')
                 ->imageEditor()
                 ->visibility('public')
                 ->image()
                 ->preserveFilenames()
-                ->maxSize(5120),
+                ->maxSize(5120)
+                ->uploadProgressIndicatorPosition('bottom')
+                ->acceptedFileTypes(['image/jpeg', 'image/png'])
+                ->storeFileNamesIn('original_filename'),
 
         ]);
     }

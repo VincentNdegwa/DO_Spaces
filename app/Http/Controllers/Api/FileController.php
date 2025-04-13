@@ -36,7 +36,7 @@ class FileController extends Controller
             $uniqueName = $fileName . '_' . time() . '.' . $extension;
             
             $path = Storage::disk('do')->putFileAs(
-                'uploads',
+                config('filesystems.disks.do.directory_env') . '/posts',
                 $file,
                 $uniqueName,
                 ['visibility' => 'public']
